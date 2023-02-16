@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lxg.mapper.StudentMapper" >
+  <resultMap id="BaseResultMap" type="com.lxg.pojo.Student" >
+    <id column="sid" property="sid" jdbcType="INTEGER" />
+    <result column="sno" property="sno" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="CHAR" />
+    <result column="age" property="age" jdbcType="INTEGER" />
+    <result column="grade" property="grade" jdbcType="VARCHAR" />
+    <result column="dorm" property="dorm" jdbcType="VARCHAR" />
+  </resultMap>
+
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_stu
+    where sid = #{sid,jdbcType=INTEGER}
+  </delete>
+
+
+  <delete id="deleteBySno">
+    delete from t_stu
+    where sno = #{sno}
+  </delete>
+
+
+  <insert id="insert" parameterType="com.lxg.pojo.Student" >
+    insert into t_stu (sid, sno, name, 
+      sex, age, grade, dorm
+      )
+    values (#{sid,jdbcType=INTEGER}, #{sno,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{sex,jdbcType=CHAR}, #{age,jdbcType=INTEGER}, #{grade,jdbcType=VARCHAR}, #{dorm,jdbcType=VARCHAR}
+      )
+  </insert>
+
+
+  <update id="updateBySno" >
+    update t_stu
+    set sno = #{sno,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=CHAR},
+      age = #{age,jdbcType=INTEGER},
+      grade = #{grade,jdbcType=VARCHAR},
+      dorm = #{dorm,jdbcType=VARCHAR}
+    where sno=#{sno}
+  </update>
+
+
+  <select id="selectBySno" resultType="Student">
+    select sid, sno, name, sex, age, grade, dorm
+    from t_stu
+    where sno = #{sno}
+  </select>
+
+
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select sid, sno, name, sex, age, grade, dorm
+    from t_stu
+  </select>
+
+
+</mapper>
